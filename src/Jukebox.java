@@ -3,6 +3,7 @@
  *    Level 1
  */
 
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -33,20 +35,32 @@ public class Jukebox implements Runnable, ActionListener {
 	
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
-	JButton spin = new JButton();
+	JButton songButton = new JButton();
+	JTextField songText = new JTextField(20);
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Jukebox());
 	}
 
 	public void run() {
+		GridBagConstraints c = new GridBagConstraints();
 		setUpFrame(frame, panel, "Jukebox");
 		
-		spin.setText("SPIN");
-		spin.addActionListener(this);
+		songButton.setText("Real Love Baby");
+		songButton.addActionListener(this);
+		songText.setText("Playing: ");
 		
 		frame.add(panel);
-		panel.add(spin);
+		
+		c.gridx = 0;
+		c.gridy = 0;
+		c.anchor = GridBagConstraints.LINE_START;
+		panel.add(songButton, c);
+		
+		c.gridx = 0;
+		c.gridy = 1;
+		c.anchor = GridBagConstraints.LINE_START;
+		panel.add(songText, c);
 		frame.pack();
 		
 		// 3. Find an mp3 on your computer or on the Internet.
@@ -83,11 +97,14 @@ public class Jukebox implements Runnable, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+
 		if( playing != true ) {
 			s.play();
+			songText.setText("Playing: Real Love Baby");
 			playing = true;
 		} else {
 			s.stop();
+			songText.setText("Playing: ");
 			playing = false;
 		}
 	}
