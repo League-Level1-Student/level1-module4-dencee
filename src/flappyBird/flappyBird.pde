@@ -1,5 +1,6 @@
 int gravity = 3;
-int upVelocity = 30;
+int upVelocity = 0;
+int maxVelocity = 0;
 
 int birdX = 100;
 int birdY = 400;
@@ -32,13 +33,21 @@ void draw(){
 
   showBar(topBarX, 0, topPipeHeight);
   showBar(botBarX, (800 - botPipeHeight), botPipeHeight);
-  println(botPipeHeight);
 
-  if( intersectsPipes() != true ){
+  if( intersectsPipes() == true ){
+    print("Game Over!");
+  } else {
     topBarX -= 5;
     botBarX -= 5;
-    upVelocity = upVelocity + gravity;
-    birdY = upVelocity;
+    
+    if(upVelocity < maxVelocity) {
+      upVelocity += 5;
+    } else {
+      upVelocity = 0;
+      maxVelocity = 0;
+    }
+    
+    birdY += ( gravity - upVelocity );
   }
 }
 
@@ -58,5 +67,5 @@ boolean intersectsPipes() {
 }
 
 void mousePressed(){
-  upVelocity -= 50;
+  maxVelocity = 30;
 }
