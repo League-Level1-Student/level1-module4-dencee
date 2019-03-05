@@ -11,12 +11,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import javazoom.jl.decoder.JavaLayerException;
 
 public class MagicBox extends JPanel implements Runnable, MouseListener {
 
@@ -30,7 +33,7 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	 * 
 	 * 3. backgroundImage.getRGB(keyEvent.getX(), keyEvent.getY()) will give you the color of the current pixel.
 	 */
-
+	MediaPalace media = new MediaPalace();
 	BufferedImage backgroundImage;
 
 	public static void main(String[] args) throws Exception {
@@ -77,8 +80,23 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		int xval = e.getX();
+		int yval = e.getY();
+		
 		int c = backgroundImage.getRGB(e.getX(), e.getY());
-		System.out.println("mouse clicked " + c);
+		System.out.println("mouse clicked " + e.getX() + " " + e.getY() + " " + String.format("%Xh", c));
+		
+		if( ((Math.abs(xval) - 84) <= 5) && ((Math.abs(yval) - 111) <= 5) ) {
+			try {
+				media.playMp3FromComputer("real.mp3");
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (JavaLayerException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 
 	@Override

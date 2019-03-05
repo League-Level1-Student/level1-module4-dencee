@@ -36,6 +36,7 @@ public class Jukebox implements Runnable, ActionListener {
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
 	JButton songButton = new JButton();
+//	JButton stopButton = new JButton();
 	JTextField songText = new JTextField(20);
 	
 	public static void main(String[] args) {
@@ -47,8 +48,9 @@ public class Jukebox implements Runnable, ActionListener {
 		setUpFrame(frame, panel, "Jukebox");
 		
 		songButton.setText("Real Love Baby");
+//		stopButton.setText("Stop Playing");
 		songButton.addActionListener(this);
-		songText.setText("Playing: ");
+//		stopButton.addActionListener(this);
 		
 		frame.add(panel);
 		
@@ -56,6 +58,11 @@ public class Jukebox implements Runnable, ActionListener {
 		c.gridy = 0;
 		c.anchor = GridBagConstraints.LINE_START;
 		panel.add(songButton, c);
+
+//		c.gridx = 1;
+//		c.gridy = 0;
+//		c.anchor = GridBagConstraints.LINE_START;
+//		panel.add(stopButton, c);
 		
 		c.gridx = 0;
 		c.gridy = 1;
@@ -68,7 +75,7 @@ public class Jukebox implements Runnable, ActionListener {
 		s = new Song("real.mp3");
 
 		// 5. Play the Song
-		
+		// <See actionPerformed method>
 
 		/*
 		 * 6. Create a user interface for your Jukebox so that the user can to choose
